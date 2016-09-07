@@ -1,10 +1,6 @@
 package me.alad.phoenix.pool;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
-
-import org.apache.commons.lang.NumberUtils;
+import com.google.common.base.Strings;
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -16,7 +12,9 @@ import org.apache.phoenix.util.QueryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Strings;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 
 /**
@@ -52,16 +50,11 @@ public class PhoenixPoolableObjectFactory implements PoolableObjectFactory<Phoen
     @Override
     public boolean validateObject(PhoenixConnection obj) {
 
-        PhoenixConnection conn = (PhoenixConnection) obj;
+        PhoenixConnection conn = obj;
         // The time in seconds to wait for the database operation used to
         // validate the connection to complete
         try {
-            if (conn.isValid(validateTimeout)) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return conn.isValid(validateTimeout);
         }
         catch (SQLException e) {
             logger.info("validateObject fail:", e);
@@ -80,7 +73,7 @@ public class PhoenixPoolableObjectFactory implements PoolableObjectFactory<Phoen
     @Override
     public void destroyObject(PhoenixConnection obj) throws Exception {
         if (obj instanceof PhoenixConnection) {
-            PhoenixConnection conn = (PhoenixConnection) obj;
+            PhoenixConnection conn = obj;
             if (!conn.isClosed()) {
                 conn.close();
             }
@@ -109,7 +102,7 @@ public class PhoenixPoolableObjectFactory implements PoolableObjectFactory<Phoen
     }
 
 
-    private PhoenixConnection genConn() {
+    private PhoenixConnection genConn() throws SQLException {
         PhoenixConnection pconn = null;
         try {
             Properties connProps = new Properties();
@@ -131,14 +124,19 @@ public class PhoenixPoolableObjectFactory implements PoolableObjectFactory<Phoen
             Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
             pconn = DriverManager.getConnection(jdbcUrl, connProps).unwrap(PhoenixConnection.class);
             logger.info("获取Phoenix连接成功......");
-            return pconn;
-
         }
         catch (Exception e) {
             logger.error("获取Phoenix连接失败:" + e.getMessage());
             logger.error("PhoenixPoolableObjectFactory makeObject fail,reason:", e.getMessage());
+            try {
+                if (pconn != null)
+                    pconn.close();
+            } catch (SQLException e1) {
+                throw new RuntimeException(e1);
+            }
             throw new RuntimeException(e);
         }
+        return pconn;
     }
 
 

@@ -1,23 +1,22 @@
+import me.alad.phoenix.pool.ConnectionManager;
+import me.alad.phoenix.pool.ConnectionProviderImpl;
+import me.alad.phoenix.pool.PhoenixPoolableObjectFactory;
+import org.apache.phoenix.jdbc.PhoenixConnection;
+import org.apache.phoenix.util.CSVCommonsLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import me.alad.phoenix.pool.ConnectionManager;
-import me.alad.phoenix.pool.ConnectionProviderImpl;
-import me.alad.phoenix.pool.PhoenixPoolableObjectFactory;
-
-import org.apache.phoenix.jdbc.PhoenixConnection;
-import org.apache.phoenix.util.CSVCommonsLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class LoadData {
-	public static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
-	public static char quoteCharacter = 240;
+	private final static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
+	private final static char quoteCharacter = 240;
 	private static Logger LOG = LoggerFactory.getLogger(LoadData.class);
-	public static ConnectionManager connManager = null;
+	private static ConnectionManager connManager = null;
 
 	static {
 		Properties props = new Properties();
@@ -60,10 +59,9 @@ public class LoadData {
 
 	/**
 	 * 将数据写入phoenix
-	 * 
-	 * @param connManager
+	 *
 	 * @param tableName
-	 * @param fieldNames
+	 * @param fields
 	 * @param fileName
 	 */
 	public static void dumpToPhoenix(String tableName, List<String> fields,

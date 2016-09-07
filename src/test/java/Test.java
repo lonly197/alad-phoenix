@@ -1,10 +1,5 @@
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import me.alad.phoenix.pool.ConnectionManager;
-
 import org.apache.phoenix.jdbc.PhoenixConnection;
 import org.apache.phoenix.util.CSVCommonsLoader;
 import org.slf4j.Logger;
@@ -12,10 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Test {
-	private static Logger LOG = LoggerFactory.getLogger(Test.class);
 	public static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
 	public static char quoteCharacter = 240;
+	private static Logger LOG = LoggerFactory.getLogger(Test.class);
 
 	public static void main(String[] args) {
 
@@ -49,7 +48,7 @@ public class Test {
 	 * 
 	 * @param connManager
 	 * @param tableName
-	 * @param fieldNames
+	 * @param fields
 	 * @param fileName
 	 */
 	public static void dumpToPhoenix(ConnectionManager connManager,

@@ -1,11 +1,8 @@
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.Charset;
 
 public class CreateData {
-	public static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
+	public final static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
 //	public static String fieldDelimiter = ",";
 
 	public static void main(String[] args) throws Exception {
@@ -15,8 +12,10 @@ public class CreateData {
 		}
 
 		File file = new File(filePath);
-		PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-				new BufferedOutputStream(new FileOutputStream(file))));
+		PrintWriter pw =
+			new PrintWriter(
+				new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(file)), Charset
+					.forName("UTF-8")));
 
 		int num = 1;
 		while (true) {

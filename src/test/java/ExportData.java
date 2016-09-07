@@ -1,24 +1,21 @@
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import me.alad.phoenix.PhoenixUtil;
 import me.alad.phoenix.pool.ConnectionManager;
-
 import org.apache.phoenix.jdbc.PhoenixConnection;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
+
 public class ExportData {
 	public static void main(String[] args) throws Exception {
 
-		PrintWriter out = new PrintWriter("G:/test.txt");
+		String filePath = "D:/Text/test.txt";
+		if (args.length > 0) {
+			filePath = args[0];
+		}
+		PrintWriter out = new PrintWriter(filePath);
 
 		final ApplicationContext context = new ClassPathXmlApplicationContext(
 				"applicationContext-phoenix.xml");
