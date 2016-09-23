@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Test {
-	public static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
-	public static char quoteCharacter = 240;
-	private static Logger LOG = LoggerFactory.getLogger(Test.class);
+    private final static char fieldDelimiter = 239; // 字符ï作为字段间的分隔符
+    private final static char quoteCharacter = 240;
+    private static Logger LOG = LoggerFactory.getLogger(Test.class);
 
 	public static void main(String[] args) {
 

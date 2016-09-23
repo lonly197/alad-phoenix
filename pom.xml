@@ -13,7 +13,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<artifactId>alad-phoenix</artifactId>
 	<groupId>me.alad</groupId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -27,7 +27,8 @@
 		<java.version>1.8</java.version>
 		<JAVA_HOME>C:\Program Files\Java\jdk1.8.0_92</JAVA_HOME>
 		<phoenix.version>4.5.2</phoenix.version>
-		<guava.version>19.0</guava.version>
+		<phoenix-core.version>4.5.2-HBase-1.0</phoenix-core.version>
+		<guava.version>14.0.1</guava.version>
 		<commons-pool.version>1.6</commons-pool.version>
 		<spring.version>4.3.2.RELEASE</spring.version>
 		<logging.version>1.2</logging.version>
@@ -58,7 +59,7 @@
 		<dependency>
 			<groupId>org.apache.phoenix</groupId>
 			<artifactId>phoenix-core</artifactId>
-			<version>4.5.2-HBase-1.0</version>
+			<version>${phoenix-core.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>hbase-client</artifactId>
@@ -168,8 +169,8 @@
 
 	<repositories>
 		<repository>
-			<id>localrepository</id>
-			<url>http://192.1.1.1.114:8082/nexus/content/groups/public/</url>
+			<id>thirdparty</id>
+			<url>http://192.1.1.114:8082/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
 
@@ -177,12 +178,12 @@
 		<repository>
 			<id>systex-releases</id>
 			<name>xband neuxs distribution release repository</name>
-			<url>http://192.1.1.1.114:8082/nexus/content/repositories/releases/</url>
+			<url>http://192.1.1.114:8082/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>systex-snapshots</id>
 			<name>xband neuxs distribution snapshot repository</name>
-			<url>http://192.1.1.1.114:8082/nexus/content/repositories/snapshots/</url>
+			<url>http://192.1.1.114:8082/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 

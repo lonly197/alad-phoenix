@@ -1,13 +1,13 @@
 package me.alad.phoenix;
 
+import org.apache.phoenix.jdbc.PhoenixConnection;
+import org.apache.phoenix.query.QueryServices;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import org.apache.phoenix.jdbc.PhoenixConnection;
-import org.apache.phoenix.query.QueryServices;
 
 
 /**
@@ -27,7 +27,9 @@ public class phoenixTest {
         Properties connProps = new Properties();
         connProps.setProperty(QueryServices.MAX_MUTATION_SIZE_ATTRIB,"100000");
 //        connProps.setProperty(QueryServices.IMMUTABLE_ROWS_ATTRIB,"10");
-        conn = DriverManager.getConnection("jdbc:phoenix:quickstart.cloudera:2181/hbase",connProps).unwrap(PhoenixConnection.class);
+        conn = DriverManager
+            .getConnection("jdbc:phoenix:bigdata01,bigdata03,bigdata04:2181/hbase", connProps)
+            .unwrap(PhoenixConnection.class);
 //        System.out.println("got connection");
 //        test2(conn);
         System.out.println(conn);
